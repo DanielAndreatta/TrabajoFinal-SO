@@ -29,7 +29,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel3 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
@@ -41,19 +40,10 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel3.setBackground(new java.awt.Color(255, 255, 255));
-        jLabel3.setFont(new java.awt.Font("Arial Unicode MS", 1, 24)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(0, 5, 250));
-        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel3.setText("Simulador de Administracion de Memoria");
-        jLabel3.setToolTipText("");
-        jLabel3.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 420, 510, 60));
-
-        jLabel2.setFont(new java.awt.Font("Arial Unicode MS", 1, 18)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Arial Unicode MS", 1, 24)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(0, 0, 255));
-        jLabel2.setText("Algoritmo Etiquetas Limites");
-        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 460, 250, 30));
+        jLabel2.setText("SIMULADOR ETIQUETAS LIMITES");
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 440, 490, 50));
 
         jButton1.setText("BEST-FIT");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -100,13 +90,13 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem6ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-       Tamano a = new Tamano() ;
+       Tamaño_FF a = new Tamaño_FF() ;
        a.setVisible(true);
        dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-       Tamano a = new Tamano() ;
+       Tamaño_FF a = new Tamaño_FF() ;
        a.setVisible(true);
        dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
@@ -151,7 +141,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem6;
