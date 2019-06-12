@@ -113,7 +113,7 @@ public class Tamaño_BF extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        VentanaFF m = new VentanaFF(Integer.parseInt(this.jTextField1.getText()));
+        VentanaBF m = new VentanaBF(Integer.parseInt(this.jTextField1.getText()));
         m.setVisible(true);
         dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
