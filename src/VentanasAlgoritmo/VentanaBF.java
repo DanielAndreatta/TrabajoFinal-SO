@@ -5,6 +5,7 @@
  */
 package VentanasAlgoritmo;
 
+import IGVP.VentanaPrincipal;
 import java.util.LinkedList;
 import clases.*;
 import java.awt.event.MouseAdapter;
@@ -121,7 +122,7 @@ public class VentanaBF extends javax.swing.JFrame {
             Proceso pro = new Proceso(nombre_pro, tam_pro);
             ((BloqueMemoria)this.memoria.get(i)).setProceso(pro);
             ((BloqueMemoria)this.memoria.get(i)).setMar(1);
-            this.procesos_en_memoria.addFirst(this.memoria.get(i));
+            this.procesos_en_memoria.add(this.memoria.get(i));
           } 
         } 
     }
@@ -141,7 +142,7 @@ public class VentanaBF extends javax.swing.JFrame {
             bl.setProceso(pro);
 
             this.memoria.add(bl);
-            this.procesos_en_memoria.addFirst(bl);
+            this.procesos_en_memoria.add(bl);
           } 
         } 
       }
@@ -201,9 +202,11 @@ public class VentanaBF extends javax.swing.JFrame {
               else if (i == this.dispo.size() - 1) {
                 this.dispo_cabecera.setPa(((BloqueMemoria)this.dispo.get(i)).getPa());
                 ((BloqueMemoria)this.dispo.get(i - 1)).setPs(9999);
+                this.dispo.remove(i);
               } else {
                 ((BloqueMemoria)this.dispo.get(i - 1)).setPs(((BloqueMemoria)this.dispo.get(i)).getPs());
                 ((BloqueMemoria)this.dispo.get(i + 1)).setPa(((BloqueMemoria)this.dispo.get(i)).getPa());
+                this.dispo.remove(i);
               } 
             } else {
 
@@ -305,11 +308,12 @@ public class VentanaBF extends javax.swing.JFrame {
         } 
     }
     
-    public void compactar_dispo(int posicion, int tam) {
+   public void compactar_dispo(int posicion, int tam) {
         boolean compactado = false;
 
 
-        for (int i = 0; i < this.dispo.size(); i++) {
+        for (int i = 0; i < this.dispo.size(); i++) 
+        {
 
           int pos_hno_izq = posicion - ((BloqueMemoria)this.dispo.get(i)).getTamaño();
 
@@ -318,7 +322,7 @@ public class VentanaBF extends javax.swing.JFrame {
             if (!compactado) {
               ((BloqueMemoria)this.dispo.get(i)).setTamaño(((BloqueMemoria)this.dispo.get(i)).getTamaño() + tam);
 
-
+              
               tam = ((BloqueMemoria)this.dispo.get(i)).getTamaño();
               posicion = ((BloqueMemoria)this.dispo.get(i)).getDirInicio();
               compactado = true;
@@ -335,6 +339,7 @@ public class VentanaBF extends javax.swing.JFrame {
               i--;
               try {
                 ((BloqueMemoria)this.dispo.get(i)).setPa(((BloqueMemoria)this.dispo.get(i - 1)).getDirInicio());
+                ((BloqueMemoria)this.dispo.get(i-1)).setPs(((BloqueMemoria)this.dispo.get(i)).getDirInicio());
               } catch (Exception ex) {
                 ((BloqueMemoria)this.dispo.get(i)).setPa(9999);
               } 
@@ -372,20 +377,21 @@ public class VentanaBF extends javax.swing.JFrame {
                 i--;
               } else {
 
-                ((BloqueMemoria)this.dispo.get(i)).setTamaño(((BloqueMemoria)this.dispo.get(i)).getTamaño() + tam);
-                ((BloqueMemoria)this.dispo.get(i)).setDirInicio(posicion);
+                ((BloqueMemoria)this.dispo.get(i-1)).setTamaño(((BloqueMemoria)this.dispo.get(i)).getTamaño() + tam);
+                ((BloqueMemoria)this.dispo.get(i-1)).setDirInicio(posicion);
                 try {
-                  ((BloqueMemoria)this.dispo.get(i - 1)).setPs(posicion);
+                  ((BloqueMemoria)this.dispo.get(i - 2)).setPs(posicion);
                 } catch (Exception ex) {
                   this.dispo_cabecera.setPs(posicion);
-                  ((BloqueMemoria)this.dispo.get(i)).setPa(9999);
+                  ((BloqueMemoria)this.dispo.get(i-1)).setPa(9999);
+                  ((BloqueMemoria)this.dispo.get(i-1)).setPs(9999);
                 } 
                 tam = ((BloqueMemoria)this.dispo.get(i)).getTamaño();
                 posicion = ((BloqueMemoria)this.dispo.get(i)).getDirInicio();
 
 
                 compactado = true;
-                this.dispo.remove(i + 1);
+                this.dispo.remove(i);
               } 
             }
           } 
@@ -469,6 +475,8 @@ public class VentanaBF extends javax.swing.JFrame {
         jScrollPane4 = new javax.swing.JScrollPane();
         jTable2 = new javax.swing.JTable();
         jLabel10 = new javax.swing.JLabel();
+        jButton3 = new javax.swing.JButton();
+        jButton4 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -607,6 +615,20 @@ public class VentanaBF extends javax.swing.JFrame {
         jLabel10.setText("No hay procesos en memoria");
         jLabel10.setFocusable(false);
 
+        jButton3.setText("VOLVER");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+
+        jButton4.setText("LIMPIAR PROCESOS");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -642,8 +664,16 @@ public class VentanaBF extends javax.swing.JFrame {
                                 .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(28, 28, 28)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                        .addComponent(jButton3)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(jButton4))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                        .addGap(16, 16, 16)
+                                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                        .addGap(25, 25, 25)
+                                        .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE))))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -686,6 +716,10 @@ public class VentanaBF extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jButton3)
+                                    .addComponent(jButton4))
+                                .addGap(32, 32, 32)
                                 .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jButton2))
@@ -733,6 +767,25 @@ public class VentanaBF extends javax.swing.JFrame {
         this.jLabel10.setText(nombre_proc);
     }//GEN-LAST:event_jTable2MousePressed
 
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        this.procesos_en_memoria = new LinkedList();
+        this.memoria = new LinkedList();
+        this.dispo = new LinkedList();
+        this.dispo_cabecera = new BloqueMemoria();
+    
+        configurar_memoria();
+        configurar_dispo();
+        mostrar_estado_memoria();
+        mostrar_dispo();
+        mostrar_lista_procesos();
+    }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        VentanaPrincipal m = new VentanaPrincipal();
+        m.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_jButton3ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -771,6 +824,8 @@ public class VentanaBF extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
