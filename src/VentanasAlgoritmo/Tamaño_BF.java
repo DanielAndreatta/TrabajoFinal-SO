@@ -5,6 +5,8 @@
  */
 package VentanasAlgoritmo;
 
+import IGVP.VentanaPrincipal;
+
 /**
  *
  * @author familia
@@ -120,9 +122,9 @@ public class Tamaño_BF extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-       VentanaBF m = new VentanaBF(Integer.parseInt(this.jTextField1.getText()));
-       m.setVisible(true);
-       dispose();
+        VentanaPrincipal m = new VentanaPrincipal();
+        m.setVisible(true);
+        dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
