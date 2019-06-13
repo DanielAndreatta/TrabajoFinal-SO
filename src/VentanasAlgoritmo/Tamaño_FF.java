@@ -37,7 +37,7 @@ public class Tamaño_FF extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Tamaño de Memoria");
+        setTitle("Simulador Etiquetas Limites");
 
         jLabel1.setText("Tamaño Memoria? =");
 
